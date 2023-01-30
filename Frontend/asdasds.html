@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Geolocation API with Google Maps API</title>
+		<meta charset="UTF-8" />
+	</head>
+	<body onload="displayLocation()">
+		<p id="s"></p>
+		<script>
+			function getData(state) {
+				var request = new XMLHttpRequest();
+				var method = "GET";
+				var url = "https://data.covid19india.org/data.json";
+				var async = true;
+				request.open(method, url, async);
+				request.onreadystatechange = function () {
+					if (request.readyState == 4 && request.status == 200) {
+						var data = JSON.parse(request.responseText);
+						// console.log(data);
+						var dataOfCity = data.statewise;
+						// console.log(dataOfCity);
+						// var dataOfCovid = {
+						// 	state: "",
+						// 	active: "",
+						// 	confirmed: "",
+						// 	deaths: "",
+						// 	recovered: "",
+						// };
+						dataOfCity.map((value) => {
+							// console.log(state);
+							if (value.state === state) {
+								// console.log(value);
+								var dataOfCovid = {
+									state: value.state,
+									active: value.active,
+									confirmed: value.confirmed,
+									deaths: value.deaths,
+									recovered: value.recovered,
+								};
+								console.log(dataOfCovid, "hi");
+							}
+						});
+					}
+				};
+				request.send();
+			}
+			var statename = "";
+			function displayLocation(latitude, longitude) {
+				var request = new XMLHttpRequest();
+				var method = "GET";
+				var url =
+					"https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=" +
+					latitude +
+					"&longitude=" +
+					longitude +
+					"&localityLanguage=en";
+				// console.log(url);
+				var async = true;
+				request.open(method, url, async);
+				request.onreadystatechange = function () {
+					if (request.readyState == 4 && request.status == 200) {
+						var data = JSON.parse(request.responseText);
+						// console.log(data);
+						// This is the city data we are getting
+						document.getElementById("s").innerHTML = `
+						<h1>${data.continent}</h1>
+						<h1>${data.countryName}</h1>
+						<h1>${data.principalSubdivision}</h1>
+						`;
+						statename = data.principalSubdivision;
+						// console.log(data.principalSubdivision);
+					}
+					// console.log(statename);
+					getData(statename);
+				};
+				request.send();
+			}
+
+			var successCallback = function (position) {
+				var x = position.coords.latitude;
+				var y = position.coords.longitude;
+				displayLocation(x, y);
+			};
+
+			var errorCallback = function (error) {
+				var errorMessage = "Unknown error";
+				switch (error.code) {
+					case 1:
+						errorMessage = "Permission denied";
+						break;
+					case 2:
+						errorMessage = "Position unavailable";
+						break;
+					case 3:
+						errorMessage = "Timeout";
+						break;
+				}
+				document.write(errorMessage);
+			};
+
+			var options = {
+				enableHighAccuracy: true,
+				timeout: 1000,
+				maximumAge: 0,
+			};
+
+			navigator.geolocation.getCurrentPosition(
+				successCallback,
+				errorCallback,
+				options
+			);
+		</script>
+	</body>
+</html>

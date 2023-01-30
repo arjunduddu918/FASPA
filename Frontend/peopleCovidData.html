@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				background-image: url("./ab.jpeg");
+				background-size: 100% 100vh;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				margin: 0;
+			}
+
+			html {
+				box-sizing: border-box;
+			}
+
+			@media screen and (max-width: 650px) {
+				.column {
+					width: 100%;
+					display: block;
+				}
+			}
+			.topnav {
+				background-color: rgb(46, 45, 45);
+				overflow: hidden;
+				font-size: 17px;
+			}
+
+			.topnav a {
+				float: right;
+				display: block;
+				color: rgb(224, 28, 136);
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			/* Change the color of links on hover */
+			.topnav a:hover {
+				background-color: rgb(37, 58, 173);
+				color: rgb(240, 246, 247);
+			}
+
+			/* Add an active class to highlight the current page */
+			.topnav a.active {
+				background-color: black;
+				color: rgb(241, 7, 143);
+			}
+
+			/* Hide the link that should open and close the topnav on small screens */
+			.topnav .icon {
+				display: none;
+			}
+			h1 {
+				text-align: center;
+				color: #ffffff;
+				margin-top: 10px;
+			}
+			main {
+				display: flex;
+				justify-content: center;
+			}
+			table {
+				text-align: center;
+				color: #fff;
+				width: 70vw;
+				border-collapse: separate;
+				border-spacing: 2px 4px;
+			}
+
+			td,
+			th {
+				border: rgb(27, 27, 94) solid 3px;
+				padding: 10px;
+			}
+			th {
+				height: 50px;
+			}
+			th,
+			td:hover {
+				background-color: rgb(27, 27, 94);
+			}
+		</style>
+	</head>
+	<body onload="getData()">
+		<nav class="topnav" id="myTopnav">
+			<a href="http://127.0.0.1:5501/register.html" target="_self">Sign-in</a>
+			<a href="http://127.0.0.1:5501/login.html" target="_self">Log-in</a>
+			<a href="http://127.0.0.1:5501/covidchart.html" target="_self"
+				>Covid Info</a
+			>
+			<a href="http://127.0.0.1:5501/aboutus.html" target="_self">Contact</a>
+			<a
+				href="http://127.0.0.1:5501/peopleCovidData.html"
+				class="active"
+				target="_self"
+				>People Covid Data</a
+			>
+			<a href="http://127.0.0.1:5501/weather.html" target="_self">Weather</a>
+			<a href="http://127.0.0.1:5501/landing.html" target="_self">Home</a>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+				<i class="fa fa-bars"></i>
+			</a>
+		</nav>
+		<h1>People Data</h1>
+		<main style="overflow-x: auto">
+			<table>
+				<thead>
+					<tr>
+						<th>S.No</th>
+						<th>Name</th>
+						<th>Country</th>
+						<th>City</th>
+						<th>Age</th>
+						<th>Ever Had Covid</th>
+						<th>Dose Taken</th>
+						<th>Subject</th>
+					</tr>
+				</thead>
+				<tbody id="covidData"></tbody>
+			</table>
+		</main>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+		<script>
+			let data = [
+				{
+					Age: null,
+					city: "",
+					country: "INDIA",
+					covid: false,
+					dose: 0,
+					fever: false,
+					fullName: "Sam",
+					haveCough: false,
+					subject: "",
+					__v: 0,
+					_id: "619df09e33275f39c8063636",
+				},
+			];
+			const getData = () => {
+				const url = "http://localhost:8080/covid/";
+				let stringOfLi = ``;
+
+				fetch(url)
+					.then((response) => response.json())
+					.then((data) => {
+						data.map((value, i) => {
+							let covidHad = "No";
+							if (value.covid === true) covidHad = "Yes";
+							stringOfLi += `
+							<tr>
+								<td>${i + 1}</td>
+								<td>${value.fullName}</td>
+								<td>${value.country}</td>
+								<td>${value.city}</td>
+								<td>${value.Age}</td>
+								<td>${covidHad}</td>
+								<td>${value.dose}</td>
+								<td>${value.subject}</td>
+								</tr>
+							`;
+						});
+						// console.log(stringOfLi);
+						document.getElementById("covidData").innerHTML = stringOfLi;
+					})
+					.catch((err) => console.error(err));
+			};
+		</script>
+	</body>
+</html>

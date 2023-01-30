@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link  rel="stylesheet" href="about_us.css">
+    <style>
+            
+        body {
+      font-family: Arial, Helvetica, sans-serif;
+				background-image: url("./ab.jpeg");
+				background-size: 100% 100vh;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				margin: 0;
+				/* overflow-x: scroll; */
+			}
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  .column {
+    float: left;
+    width: 33.3%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+      /* border: 3px solid rgb(111, 35, 134); */
+      /* margin-top: -1vh; */
+
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    
+  }
+  
+  .about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: transparent;
+    color: rgb(111, 35, 134);
+    margin-top: -5vh;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+  
+  
+  .button:hover {
+    background-color: #555;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .column {
+      width: 100%;
+      display: block;
+    }
+  }
+  img{
+    border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+  height: 200px;
+  width: 200px;
+  border: 3px solid rgb(111, 35, 134);
+ 
+  }
+  .topnav {
+				background-color: rgb(46, 45, 45);
+				overflow: hidden;
+        font-size: 17px;
+			}
+
+  .topnav a {
+				float: right;
+				display: block;
+				color: rgb(224, 28, 136);
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				display: block;
+			}
+
+			/* Change the color of links on hover */
+			.topnav a:hover {
+				background-color: rgb(37, 58, 173);
+				color: rgb(240, 246, 247);
+			}
+
+			/* Add an active class to highlight the current page */
+			.topnav a.active {
+				background-color: black;
+				color: rgb(241, 7, 143);
+			}
+
+			/* Hide the link that should open and close the topnav on small screens */
+			.topnav .icon {
+				display: none;
+			}
+      .sec{
+        padding-left: 20%;
+      }
+    </style>
+</head>
+<body>
+    <nav class="topnav" id="myTopnav">
+        <a href="http://127.0.0.1:5501/register.html" target="_self">Sign-in</a>
+        <a href="http://127.0.0.1:5501/login.html" target="_self">Log-in</a>
+        <a href="http://127.0.0.1:5501/covidchart.html" target="_self"
+            >Covid Info</a
+        >
+        <a href="http://127.0.0.1:5501/aboutus.html" class="active" target="_self">Contact</a>
+        <a href="http://127.0.0.1:5501/peopleCovidData.html" target="_self">People Covid Data</a>
+        <a href="http://127.0.0.1:5501/weather.html" target="_self">Weather</a>
+        <a href="http://127.0.0.1:5501/landing.html" target="_self" >Home</a>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <div class="about-section">
+        <h1>About Us </h1>
+        
+      </div>
+      
+      <h2 style="text-align:center;color:rgb(111, 35, 134); margin-top: -50px;">Our Team</h2>
+      <div class="row" style="text-align:center">
+        <div class="column">
+          <div class="card">
+            <img src="profile.jpg" alt="Fanindra Nayak" >
+            <div class="container">
+              <h3 style="color:rgb(104, 49, 119)">Nadella Venkata Gagan Rohith</h3>
+              <h3 style="color:rgb(104, 49, 119)">Reg no:- 20BIT0025</h3>
+              <p class="title">team member</p>
+              <p style="color:rgb(164, 161, 165)">studyining in <b>VIT VELLORE</b> in IT departement.</p>
+              <p style="color:rgb(188, 173, 192)"><b>E-mail</b>:-gaganrohith2002@gmail.com</p>
+            
+            </div>
+          </div>
+        </div>
+      
+        <div class="column" style="text-align:center">
+          <div class="card">
+            <img src="profile.jpg" alt="Arjun" >
+            <div class="container">
+              <h3 style="color:rgb(104, 49, 119)">Arjun</h3>
+              <h3 style="color:rgb(104, 49, 119)">Reg no:-20BIT0347</h3>
+              <p class="title">Team member</p>
+              <p style="color:rgb(188, 173, 192)">studyining in <b>VIT VELLORE</b> in IT departement. </p>
+              <p style="color:rgb(188, 173, 192)"><b>E-mail</b>:-arjunduddu918@gmail.com</p>
+             
+            </div>
+          </div>
+        </div>
+      
+        <div class="column" style="text-align:center">
+          <div class="card">
+            <img src="profile.jpg" alt="Shivansh">
+              <h3 style="color:rgb(104, 49, 119)">Immani Sai Bhargav</h3>
+              <h3 style="color:rgb(104, 49, 119)">Reg no:-20BIT0027</h3>
+              <p class="title">Team member</p>
+              <p style="color:rgb(174, 165, 177)">studyining in <b>VIT VELLORE</b> in IT departement.</p>
+              <p style="color:rgb(188, 173, 192)"><b>E-mail</b>:-@gmail.com</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sec">
+      <div class="column" style="text-align:center">
+        <div class="card">
+          <img src="profile.jpg" alt="Shivansh">
+            <h3 style="color:rgb(104, 49, 119)">K.SAI DIVYA MANI</h3>
+            <h3 style="color:rgb(104, 49, 119)">Reg no:-20BIT0346</h3>
+            <p class="title">Team member</p>
+            <p style="color:rgb(174, 165, 177)">studyining in <b>VIT VELLORE</b> in IT departement.</p>
+            <p style="color:rgb(188, 173, 192)"><b>E-mail</b>:-karnatisai.divyamani2020@vitstudent.ac.in</p>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column" style="text-align:center">
+      <div class="card">
+        <img src="profile.jpg" alt="Shivansh">
+          <h3 style="color:rgb(104, 49, 119)">Makam Ranga Rakshith 
+          </h3>
+          <h3 style="color:rgb(104, 49, 119)">Reg no:-20BIT0360</h3>
+          <p class="title">Team member</p>
+          <p style="color:rgb(174, 165, 177)">studyining in <b>VIT VELLORE</b> in IT departement.</p>
+          <p style="color:rgb(188, 173, 192)"><b>E-mail</b>:-makamranga.rakshith2020@vitstudent.ac.in</p>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

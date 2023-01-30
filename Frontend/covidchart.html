@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
+		<title>Document</title>
+		<style>
+			body {
+				background-image: url("./ab.jpeg");
+				background-size: 100% 100vh;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				margin: 0;
+			}
+			.covidSearch {
+				display: flex;
+				justify-content: center;
+				margin: 3vh 0 10vh;
+			}
+			.covidSearch > div {
+				border: rgb(31, 30, 30) solid 3px;
+				padding: 1px;
+				border-radius: 50px;
+				background-color: #20202b;
+			}
+
+			.covidSearchBox {
+				background-color: #20202b;
+				border-radius: 50px 0 0 50px;
+				border: none;
+				width: 10vw;
+				padding: 10px;
+				color: white;
+			}
+			.covidSearchBox:focus {
+				border: none;
+				outline: none;
+			}
+			.covidSearchBoxButton {
+				border: none;
+
+				padding: 10px 30px 8px 30px;
+				background-color: #1f9bdb;
+				border-radius: 20px;
+			}
+			.covidSearchBoxButton:hover {
+				background-color: #257299;
+				cursor: pointer;
+			}
+			.aboveTheChart {
+				display: flex;
+				justify-content: center;
+			}
+			/* After search Box */
+			.theChart {
+				width: 70vw;
+				height: 60vh;
+			}
+			canvas {
+				background-color: #13131a;
+				padding: 2px;
+				border-radius: 4px;
+				color: #ffffff;
+			}
+
+			.aboveCovidInformation {
+				/* border: solid red 3px; */
+				margin-top: -8vh;
+				color: white;
+				text-align: center;
+			}
+			.covidInformation {
+				display: flex;
+				justify-content: center;
+				font-size: large;
+			}
+			.covidInformation > ul > li::first-letter {
+				text-transform: capitalize;
+			}
+			.covidInformation > ul > li {
+				list-style-type: none;
+				border: rgb(27, 27, 94) solid 3px;
+				margin-bottom: 4px;
+				height: 23px;
+			}
+			.covidInformation > ul > li:hover {
+				background-color: rgb(27, 27, 94);
+			}
+			.topnav {
+				background-color: rgb(46, 45, 45);
+				overflow: hidden;
+			}
+			.topnav a {
+				float: right;
+				display: block;
+				color: rgb(224, 28, 136);
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				font-size: 17px;
+				display: block;
+			}
+
+			/* Change the color of links on hover */
+			.topnav a:hover {
+				background-color: rgb(37, 58, 173);
+				color: rgb(240, 246, 247);
+			}
+
+			/* Add an active class to highlight the current page */
+			.topnav a.active {
+				background-color: black;
+				color: rgb(241, 7, 143);
+			}
+
+			/* Hide the link that should open and close the topnav on small screens */
+			.topnav .icon {
+				display: none;
+			}
+			/* .AllSateData{
+
+			} */
+			.AllSateData {
+				display: flex;
+				justify-content: center;
+				gap: 0;
+				font-size: large;
+				color: #ffffff;
+			}
+			.AllSateData > ul > li::first-letter {
+				text-transform: capitalize;
+			}
+			.AllSateData > ul > li {
+				text-align: center;
+				list-style-type: none;
+				border: rgb(27, 27, 94) solid 3px;
+				margin-bottom: 4px;
+				height: 25px;
+				width: 200px;
+			}
+			.AllSateData > ul > li:hover {
+				background-color: rgb(27, 27, 94);
+			}
+			.aboveAllSateData {
+				display: flex;
+				justify-content: center;
+			}
+			.aboveAllSateData > ul {
+				display: flex;
+				flex-direction: row;
+				gap: 40px;
+				color: #ffffff;
+			}
+			.aboveAllSateData > ul > li::first-letter {
+				text-transform: capitalize;
+			}
+			.aboveAllSateData > ul > li {
+				text-align: center;
+				list-style-type: none;
+				border: rgb(27, 27, 94) solid 3px;
+				margin-bottom: 4px;
+				height: 25px;
+				width: 200px;
+			}
+			.AllSateData > ul > li:hover {
+				background-color: rgb(27, 27, 94);
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="topnav" id="myTopnav">
+			<a href="http://127.0.0.1:5501/register.html" target="_self">Sign-in</a>
+			<a href="http://127.0.0.1:5501/login.html" target="_self">Log-in</a>
+			<a
+				href="http://127.0.0.1:5501/covidchart.html"
+				target="_self"
+				class="active"
+				>Covid Info</a
+			>
+			<a href="http://127.0.0.1:5501/aboutus.html" target="_self">Contact</a>
+			<a href="http://127.0.0.1:5501/peopleCovidData.html" target="_self"
+				>People Covid Data</a
+			>
+			<a href="http://127.0.0.1:5501/weather.html" target="_self">Weather</a>
+			<a href="http://127.0.0.1:5501/landing.html" target="_self">Home</a>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+				<i class="fa fa-bars"></i>
+			</a>
+		</nav>
+		<section ng-app="myApp" ng-controller="myCtrl" onload="c()">
+			<section class="covidSearch">
+				<div>
+					<input
+						type="text"
+						class="covidSearchBox"
+						placeholder="Enter a city to get it's weather"
+						ng-model="a"
+					/>
+					<button ng-click="c()" class="covidSearchBoxButton">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							fill="currentColor"
+							class="bi bi-search"
+							viewBox="0 0 16 16"
+						>
+							<path
+								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+							/>
+						</svg>
+					</button>
+				</div>
+			</section>
+
+			<section class="aboveTheChart">
+				<div class="theChart">
+					<canvas id="myChart"></canvas>
+				</div>
+				<section class="aboveCovidInformation">
+					<h1>{{stateName}}</h1>
+					<div class="covidInformation">
+						<ul>
+							<li ng-repeat="x in state">{{ x }}</li>
+						</ul>
+						<ul>
+							<li ng-repeat="x in data">{{ x }}</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<div ng-show="something" class="aboveAllSateData">
+				<ul>
+					<li>State Name</li>
+					<li>Active</li>
+					<li>Confirmed</li>
+					<li>Deaths</li>
+					<li>Recovered</li>
+				</ul>
+			</div>
+			<section ng-show="something" class="AllSateData">
+				<ul>
+					<li ng-repeat="x in ab">{{ x }}</li>
+				</ul>
+				<ul>
+					<li ng-repeat="x in bb">{{ x }}</li>
+				</ul>
+				<ul>
+					<li ng-repeat="x in cb">{{ x }}</li>
+				</ul>
+				<ul>
+					<li ng-repeat="x in db">{{ x }}</li>
+				</ul>
+				<ul>
+					<li ng-repeat="x in eb">{{ x }}</li>
+				</ul>
+			</section>
+		</section>
+
+		<script>
+			const ctx = document.getElementById("myChart").getContext("2d");
+			const myChart = new Chart(ctx, {
+				type: "bar",
+				data: {
+					labels: [
+						"active",
+						"confirmed",
+						"deaths",
+						"deltaconfirmed",
+						"deltadeaths",
+						"deltarecovered",
+						"lastupdatedtime",
+						"migratedother",
+						"recovered",
+						"state",
+						"statecode",
+						"statenotes",
+					],
+					datasets: [
+						{
+							label: "Total",
+
+							data: [
+								"363849",
+								"32249900",
+								"432112",
+								"24692",
+								"438",
+								"36862",
+								"13/08/2021 23:22",
+								"12679",
+								"31441260",
+								"Total",
+								"TT",
+								"",
+							],
+							backgroundColor: [
+								"rgba(255, 99, 132, 0.2)",
+								"rgba(54, 162, 235, 0.2)",
+								"rgba(255, 206, 86, 0.2)",
+								"rgba(75, 192, 192, 0.2)",
+								"rgba(153, 102, 255, 0.2)",
+								"rgba(255, 159, 64, 0.2)",
+							],
+							borderColor: [
+								"rgba(255, 99, 132, 1)",
+								"rgba(54, 162, 235, 1)",
+								"rgba(255, 206, 86, 1)",
+								"rgba(75, 192, 192, 1)",
+								"rgba(153, 102, 255, 1)",
+								"rgba(255, 159, 64, 1)",
+							],
+							borderWidth: 1,
+						},
+					],
+				},
+				options: {
+					maintainAspectRatio: false,
+					scales: {
+						y: {
+							beginAtZero: true,
+						},
+					},
+				},
+			});
+
+			var app = angular.module("myApp", []);
+			app.controller("myCtrl", function ($scope, $http) {
+				$scope.a = "Haryana";
+				$scope.state = [
+					"active",
+					"confirmed",
+					"deaths",
+					"deltaconfirmed",
+					"deltadeaths",
+					"deltarecovered",
+					"lastupdatedtime",
+					"migratedother",
+					"recovered",
+					"state",
+					"statecode",
+					"statenotes",
+				];
+				$scope.data = [
+					"363849",
+					"32249900",
+					"432112",
+					"24692",
+					"438",
+					"36862",
+					"13/08/2021 23:22",
+					"12679",
+					"31441260",
+					"Total",
+					"TT",
+					"",
+				];
+				$scope.stateName = "Total";
+				const stateName = [];
+				const active = [];
+				const confirmed = [];
+				const deaths = [];
+				const recovered = [];
+				$scope.c = function () {
+					$scope.data = [];
+					$scope.state = [];
+
+					$http
+						.get("https://data.covid19india.org/data.json")
+						.then(function (response) {
+							const da = response.data.statewise.map((value) => {
+								// console.log(value.recovered);
+
+								stateName.push(value.state);
+								active.push(value.active);
+								confirmed.push(value.confirmed);
+								deaths.push(value.deaths);
+								recovered.push(value.recovered);
+
+								if (value.state === $scope.a) {
+									$scope.stateName = value.state;
+									for (const i in value) {
+										$scope.state.push(i);
+										$scope.data.push(value[i]);
+									}
+								}
+							});
+							myChart.data.datasets[0].label = $scope.stateName;
+							myChart.data.datasets[0].data = $scope.data;
+							myChart.data.labels = $scope.state;
+							myChart.update();
+						});
+					// console.log(stateName);
+
+					$scope.something = true;
+					$scope.ab = stateName;
+					$scope.bb = active;
+					$scope.cb = confirmed;
+					$scope.db = deaths;
+					$scope.eb = recovered;
+				};
+			});
+		</script>
+	</body>
+</html>

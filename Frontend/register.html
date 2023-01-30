@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign-up</title>
+    <link rel="stylesheet" href="FASPA_register_page.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+				background-image: url("./ab.jpeg");
+				background-size: 100% 100vh;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+				margin: 0;
+				/* overflow-x: scroll; */
+			}
+.sign-up{
+  width:300px;
+  position:absolute; 
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  color: #fff;
+  backdrop-filter: blur(2px) saturate(200%);
+    -webkit-backdrop-filter: blur(2px) saturate(200%);
+    background-color: rgba(48, 48, 56, 0.49);
+    border-radius: 12px;
+    border: 1px solid rgba(97, 24, 216, 0.125);
+    padding-top: 0cm;
+    padding-left: 1cm;
+    padding-right: 1cm;
+    padding-bottom: 0.5cm;
+  
+      }
+.sign-up h1{
+  float:left;
+  font-size:40px;
+  border-bottom: 5px solid rgb(70, 35, 134);
+  margin-bottom:25px;
+}
+.text{
+    width:100%;
+    overflow: hidden;
+    font-size: 15px;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-bottom: 4px solid rgb(70, 35, 134);
+}
+.text input{
+    border: 0px;
+    outline: 0px;
+    background: none;
+    color: white;
+    width: 250px;
+    margin: 0 10px;
+}
+.btn{
+ float: center;
+ width: 100%;
+ color: white;
+ border:2px solid rgb(70, 35, 134) ;
+  background: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+
+}
+.topnav {
+				background-color: rgb(46, 45, 45);
+				overflow: hidden;
+			}
+.topnav a {
+				float: right;
+				display: block;
+				color: rgb(224, 28, 136);
+				text-align: center;
+				padding: 14px 16px;
+				text-decoration: none;
+				font-size: 17px;
+				display: block;
+			}
+
+			/* Change the color of links on hover */
+			.topnav a:hover {
+				background-color: rgb(37, 58, 173);
+				color: rgb(240, 246, 247);
+			}
+
+			/* Add an active class to highlight the current page */
+			.topnav a.active {
+				background-color: black;
+				color: rgb(241, 7, 143);
+			}
+
+			/* Hide the link that should open and close the topnav on small screens */
+			.topnav .icon {
+				display: none;
+			}
+    </style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> 
+  
+  <body>
+    <nav class="topnav" id="myTopnav">
+        <a href="http://127.0.0.1:5501/register.html" target="_self" class="active">Sign-in</a>
+        <a href="http://127.0.0.1:5501/login.html" target="_self">Log-in</a>
+        <a href="http://127.0.0.1:5501/covidchart.html" target="_self"
+            >Covid Info</a
+        >
+        <a href="http://127.0.0.1:5501/aboutus.html" target="_self">Contact</a>
+        <a href="http://127.0.0.1:5501/peopleCovidData.html" target="_self">People Covid Data</a>
+        <a href="http://127.0.0.1:5501/weather.html" target="_self">Weather</a>
+        <a href="http://127.0.0.1:5501/landing.html" target="_self" >Home</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+    <div ng-app="myApp" ng-controller="validateCtrl">
+      <h1 ng-show="showText" style="color: #fff;display: flex;justify-content: center;
+      align-items: center;margin-top: 20vh;">Registered  Redirecting to the login page</h1>
+      <h1 ng-show="showError" style="color: #fff;display: flex;justify-content: center;
+      align-items: center;margin-top: 20vh;">Fill entry properly or email already exist</h1>
+      <form  name="myForm" ng-show="some" novalidate>
+        <div class="glass">
+          <div class="sign-up">
+        <h1>SIGN-UP</h1>
+        <div class="text">
+          <h4>Enter Username</h4>
+          <i class="fa fa-user" aria-hidden="true"></i>
+        <input type="text"  name="username" value="" ng-model="username"" required>
+        <span style="color:red" ng-show="myForm.username.$dirty && myForm.username.$invalid">
+          <span ng-show="myForm.username.$error.required">Username is required.</span>
+      </div>
+      <div class="text">
+        <h4>Enter e-mail</h4>
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <input type="email"  name="email" value="" ng-model="email" required>
+        <span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+          <span ng-show="myForm.email.$error.required">Email is required.</span>
+          <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+      </div>
+      <div class="text">
+        <h4>Enter password</h4>
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        <input type="password" name="password"  required="" id="id_password" ng-model="password" required>
+      <i class="fa fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+      <span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+        <span ng-show="myForm.password.$error.required">password is required.</span>
+      </div>
+      <div class="text">
+        <h4>Re-Enter password</h4>
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        <input type="password"  name="repassword" value="" ng-model="repassword" required>
+        <span style="color:red" ng-show="myForm.repassword.$dirty && myForm.repassword.$invalid">
+          <span ng-show="myForm.repassword.$error.required">enter the password</span>
+      </div><div>
+      <input class="btn"  type="button" name="" value="sign-up" ng-click="Register()" ng-disabled="myForm.username.$dirty && myForm.username.$invalid ||  
+      myForm.email.$dirty && myForm.email.$invalid"></div>
+      
+    </div>
+  </form>
+</div>
+</div>
+  </body>
+  <script>
+    let data={
+      name:"",
+      email:"",
+      password:"",
+      cpassword:""
+    }
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope,$http,$timeout) {
+    $scope.username = 'user name';
+    $scope.email = 'email@123';
+    $scope.password = 'password';
+    $scope.repassword = "password";
+    $scope.some=true;
+        $scope.showText=false;
+        $scope.showError=false;
+    $scope.Register=function(){
+      data={
+        name:$scope.username,
+        email:$scope.email,
+        password:$scope.password,
+        cpassword:$scope.repassword
+      }
+      $http.post("http://localhost:8080/create/register",data).then((resp)=>{
+        console.log(resp.data);
+        if(resp.data.messege ="RegisteredSucessfully"){
+          $scope.some=false;
+        $scope.showText=true;
+          $timeout( function(){ 
+          location.replace("http://127.0.0.1:5501/login.html");
+        }, 3000);
+      }
+        
+      })
+    }
+  
+    
+});
+
+
+
+</script>
+
+  </html>
